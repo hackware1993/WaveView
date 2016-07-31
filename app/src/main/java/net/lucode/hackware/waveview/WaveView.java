@@ -18,19 +18,15 @@ import java.util.List;
  */
 public class WaveView extends View {
     private float mInitialRadius;   // 初始波纹半径
-    private float mMaxRadiusRate = 0.85f;
     private float mMaxRadius;   // 最大波纹半径
     private long mDuration = 2000; // 一个波纹从创建到消失的持续时间
     private int mSpeed = 500;   // 波纹的创建速度，每500ms创建一个
-    private Interpolator mInterpolator = new LinearInterpolator();
-
-    private List<Circle> mCircleList = new ArrayList<Circle>();
-    private boolean mIsRunning;
-
+    private float mMaxRadiusRate = 0.85f;
     private boolean mMaxRadiusSet;
 
-    private Paint mPaint;
+    private boolean mIsRunning;
     private long mLastCreateTime;
+    private List<Circle> mCircleList = new ArrayList<Circle>();
 
     private Runnable mCreateCircle = new Runnable() {
         @Override
@@ -42,14 +38,16 @@ public class WaveView extends View {
         }
     };
 
+    private Interpolator mInterpolator = new LinearInterpolator();
+
+    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
     public WaveView(Context context) {
-        this(context, null);
+        super(context);
     }
 
     public WaveView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        setStyle(Paint.Style.FILL);
     }
 
     public void setStyle(Paint.Style style) {
